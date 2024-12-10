@@ -1,51 +1,83 @@
-# Job Crolling
+# Job Crawler
 
-This project is designed to scrape job postings from a given URL and output the results into a CSV file. The CSV file will include details such as the date, company name, and job title.
+이 프로젝트는 특정 웹사이트에서 채용 공고를 크롤링하여 CSV 파일로 저장하는 Python 스크립트입니다. 이 스크립트는 사용자가 지정한 URL에서 채용 공고의 URL을 추출하고, 각 공고의 세부 정보를 수집하여 CSV 파일로 저장합니다.
 
-## Project Structurer
+## 기능
 
-- `src/`: Contains the source code for the web crawler.
-  - `crawler.py`: Main script to perform web crawling.
-  - `utils.py`: Utility functions to support the crawler.
-  
-- `data/`: Directory where the output CSV file will be stored.
-  - `output.csv`: The resulting CSV file with job postings.
+1. **채용 공고 URL 추출**:
+   - 주어진 URL에서 페이지를 순회하며 채용 공고의 URL을 수집합니다.
+   - 페이지가 더 이상 존재하지 않거나 데이터가 없을 경우, 크롤링을 종료합니다.
 
-- `requirements.txt`: Lists the Python dependencies required for the project.
+2. **채용 공고 세부 정보 추출**:
+   - 수집한 각 채용 공고의 URL에 대해 HTTP GET 요청을 보내고, 응답으로 받은 HTML 문서에서 필요한 정보를 추출합니다.
+   - 추출하는 정보는 다음과 같습니다:
+     - 채용공고 제목
+     - 등록일자
+     - 업체명
+     - 업종
+     - 전화번호
+     - 주소
+     - 홈페이지
+     - 요원형태
+     - 고용형태
+     - 자격요원
+     - 급여조건
+     - 최종학력
+     - 전공계열
+     - 담당업무
+     - 근무형태
+     - 출퇴근시간
+     - 특근·잔업
+     - 교대근무
+     - 수습기간
+     - 군사훈련교육 소집기간 급여
+     - 퇴직금 지급 여부
+     - 식사(비) 지급 여부
+     - 현역 배정 인원
+     - 현역 편입 인원
+     - 보충역 배정 인원
+     - 보충역 편입 인원
+     - 모집 인원
+     - 외국어 능력
+     - 자격증
+     - 복리후생
+     - 접수 기간
+     - 접수 방법
+     - 담당자
+     - 담당자 전화번호
+     - 담당자 팩스번호
+     - 비고
 
-- `README.md`: Documentation for the project.
+3. **CSV 파일로 저장**:
+   - 수집한 채용 공고의 세부 정보를 CSV 파일로 저장합니다.
+   - 파일 이름은 현재 날짜와 시간을 기반으로 생성되어, 매번 고유한 이름을 가집니다.
 
-## Installation
+## 사용 방법
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/ygh1254/Job_Crolling.git
-   cd Job_Crolling
-   ```
+1. **환경 설정**:
+   - Python 3.x가 설치되어 있어야 합니다.
+   - 필요한 라이브러리를 설치합니다.
 
-2. Install the required Python packages:
+2. **필요한 라이브러리 설치**:
    ```bash
    pip install -r requirements.txt
    ```
 
-## Usage
-
-1. Run the crawler script with the desired URL:
+3. **스크립트 실행**:
+   - `main.py`를 실행하여 채용 공고를 크롤링하고 CSV 파일로 저장합니다.
    ```bash
-   python src/crawler.py --url "http://example.com/jobs"
+   python main.py
    ```
 
-2. The results will be saved in `data/output.csv`.
+## 파일 구조
 
-## Requirements
+```
+.
+├── main.py
+├── requirements.txt
+└── README.md
+```
 
-- Python 3.12.7
-- Libraries specified in `requirements.txt` (e.g., BeautifulSoup, requests)
+## 라이센스
 
-## Contributing
-
-Feel free to submit issues or pull requests if you have suggestions or improvements.
-
-## License
-
-This project is licensed under the MIT License.
+이 프로젝트는 MIT 라이센스 하에 배포됩니다.
