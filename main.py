@@ -41,8 +41,10 @@ def get_job_urls(url, filters):
             print("더 이상 페이지가 없습니다. 종료합니다.")
             break
         
+        print(f"페이지 {page}에서 URL을 추출했습니다.")  # 진행 상태 출력
         page += 1
 
+    print(f"총 {len(job_urls)}개의 채용 공고 URL을 추출했습니다.")  # 최종 URL 수 출력
     return job_urls
 
 def get_text(soup, th_text):
@@ -53,11 +55,11 @@ def get_text(soup, th_text):
 def extract_job_details(job_urls):
     """채용 공고의 세부 정보를 추출하여 CSV 파일로 저장합니다."""
     csv_headers = [
-        "Index", "채용공고", "등록일자", "업체명", "업종", "전화번호", "주소", "홈페이지",
+        "Index", "채용공고","접수기간", "등록일자", "업체명", "업종", "전화번호", "주소", "홈페이지",
         "요원형태", "고용형태", "자격요원", "급여조건", "최종학력", "전공계열", "담당업무",
         "근무형태", "출퇴근시간", "특근·잔업", "교대근무", "수습기간", "군사훈련교육 소집기간 급여",
         "퇴직금지급", "식사(비)지급", "현역배정인원", "현역편입인원", "보충역배정인원",
-        "보충역편입인원", "모집인원", "외국어", "자격증", "복리후생", "접수기간", "접수방법",
+        "보충역편입인원", "모집인원", "외국어", "자격증", "복리후생", "접수방법",
         "담당자", "담당자 전화번호", "담당자 팩스번호", "비고"
     ]
 
@@ -80,6 +82,9 @@ def extract_job_details(job_urls):
             job_details.extend(get_text(soup, header) for header in csv_headers[1:])  # 나머지 세부 정보 추가
             
             writer.writerow(job_details)  # 세부 정보 작성
+            print(f"{idx}/{len(job_urls)}: '{job_details[1]}'의 세부 정보를 저장했습니다.")  # 진행 상태 출력
+
+    print("모든 채용 공고의 세부 정보가 CSV 파일에 저장되었습니다.")  # 최종 완료 메시지
 
 def main():
     url = 'https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaek.do'
